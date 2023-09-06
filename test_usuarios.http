@@ -3,8 +3,8 @@ POST http://localhost:9000/api/users HTTP/1.1
 Content-Type: application/json
 
 {
-    "titulo": "a",
-    "descripcion": "a"
+    "correo": "miguel.villegas2@unmsm.edu.pe",
+    "contraseña": "12345"
 }
 
 ### 
@@ -12,18 +12,18 @@ GET http://localhost:9000/api/users HTTP/1.1
 
 //Busqueda por "_id"
 ###
-GET http://localhost:9000/api/users/64e67069b1a6bc3603b86848 HTTP/1.1
+GET http://localhost:9000/api/users/64eec850f769210673b03362 HTTP/1.1
 
 //Actualiza por "_id"
 ###
-PUT http://localhost:9000/api/users/64e67069b1a6bc3603b86848 HTTP/1.1
+PUT http://localhost:9000/api/users/64eec850f769210673b03362 HTTP/1.1
 Content-Type: application/json
 
 {
-    "titulo": "b",
-    "descripcion": "b"
+    "correo": "miguel.villegas2@unmsm.edu.pe",
+    "contraseña": "54321"
 }
 
 //Eliminar por "_id"
 ###
-DELETE http://localhost:9000/api/users/64e67069b1a6bc3603b86848 HTTP/1.1
+DELETE http://localhost:9000/api/users/64eec850f769210673b03362 HTTP/1.1
