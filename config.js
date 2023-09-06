@@ -34,22 +34,22 @@ mongoose
 app.listen(port, () => console.log('servidor esta funcionando', port));
 
 //Configuracion autenticación Google
-passport.use(new GoogleStrategy({
-    clientID: process.env.CLIENT_ID,
-    clientSecret: process.env.CLIENT_SECRET,
-    callbackURL: "http://localhost:9000/auth/google/registrar"
-  },
-  function(accessToken, refreshToken, profile, cb) {
-    User.findOrCreate({ googleId: profile.id }, function (err, user) {
-      return cb(err, user);
-    });
-  }
-));
+// passport.use(new GoogleStrategy({
+//     clientID: process.env.CLIENT_ID,
+//     clientSecret: process.env.CLIENT_SECRET,
+//     callbackURL: "http://localhost:9000/auth/google/registrar"
+//   },
+//   function(accessToken, refreshToken, profile, cb) {
+//     User.findOrCreate({ googleId: profile.id }, function (err, user) {
+//       return cb(err, user);
+//     });
+//   }
+// ));
 
-// auth google
-app.get('/auth/google',passport.authenticate('google', { scope: ['profile'] }));
-// Callback auth google
-app.route("/auth/google/crear")
-.get( passport.authenticate('google', { failureRedirect: "/iniciar-sesion" }),
-    function(req, res) { res.redirect("/crear");
-});
+// // auth google
+// app.get('/auth/google',passport.authenticate('google', { scope: ['profile'] }));
+// // Callback auth google
+// app.route("/auth/google/crear")
+// .get( passport.authenticate('google', { failureRedirect: "/iniciar-sesion" }),
+//     function(req, res) { res.redirect("/crear");
+// });
