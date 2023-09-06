@@ -1,21 +1,55 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>REGISTRAR</title>
+    <title>Administrador</title>
+    <link rel="stylesheet" href="./css/administrador-style.css">
 </head>
 <body>
-    <!-- autenticación google -->
-    <div class="container my-5" >
-      <div class="card social-block">
-        <div class="card-body" style="text-align: center !important; background-color:#FF0000 !important;">
-          <a class="btn btn-block btn-social btn-google" href="/auth/google" role="button" style="color: white;">
-            <i class="bi bi-google" style="margin-right: 4px;"></i>
-            Sign Up with Google
-          </a>
+    <header>
+        <div class="superior-izquierdo">
+            <div>
+                <img src="../imagenes/c1-Fisi.png" alt="Fisi">
+            </div>
+            <h2>Sistema de Gestión de Actividades</h2>
         </div>
-      </div>
-    </div>
+        <div class="superior-derecha">
+            <h2>Administrador</h2>
+            <div>
+                <img src="../imagenes/c1-Perfil1.png" alt="Perfil">
+            </div>
+        </div>
+    </header>
+    <main>  
+        <article>
+            <div class="listas">
+                <a href="registrar-docente.html">Registrar Docentes <img src="../imagenes/Registrar-docente.png" alt="Docentes"></a> 
+            </div>
+            <div class="listas">
+                <a href="registrar-alumno.html">Registrar Alumnos <img src="../imagenes/Registrar-alumno.png" alt="Alumnos"></a>
+            </div>
+            <div class="listas">
+                <a href="registrar-curso.html">Registrar Cursos <img src="../imagenes/Registrar-curso.png" alt="Cursos"></a>
+            </div>
+            <div class="listas4">
+                <div>
+                    <label>Listar Registro</label><img src="../imagenes/Listar.png" alt="Lista">
+                </div>
+                <form action="">
+                    <label>Elige una opcion:</label>
+                    <select name="idioma" id="">
+                        <option value="doc" >Docentes</option>
+                        <option value="alu">Alumnos</option>
+                        <option value="cur" selected>Cursos</option>
+                    </select>
+                    <input type="submit">
+                </form>
+            </div>  
+        </article>
+    </main>
+    <footer>
+        <h3>Facultad de Ingeniería de Sistemas e Informática - Proyecto</h3>
+    </footer>
 </body>
 </html>

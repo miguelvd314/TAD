@@ -1,0 +1,160 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+body{
+    width: 100vw;
+    height: 100vh;
+    /* background-color: aqua; */
+}
+
+header{
+    width: 100vw;
+    height: 15vh;
+    background-color: aquamarine;
+    font-size: 16px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.superior-izquierdo{
+    color: red;
+    display: flex;
+    align-items: center;
+}
+
+.superior-izquierdo img{
+    margin-left: 20px;
+}
+
+.superior-izquierdo h2{
+    margin-left: 20px;
+}
+
+.superior-derecha{
+    color: white;
+    display: flex;
+    align-items: center;
+}
+
+.superior-derecha img{
+    margin-right: 20px;
+}
+
+.superior-derecha h2{
+    margin-right: 20px;
+}
+
+header img{
+    width: 60%;
+    height: 60%;
+}
+/* --------------------------------- */
+main{
+    width: 100vw;
+    height: 75vh;
+    background-color: aliceblue;
+}
+
+footer{
+    color: blue;
+    width: 100vw;
+    height: 10vh;
+    background-color: pink;
+    text-align: center;
+    padding-top: 20px;
+}
+
+/* ---------------------------------- */
+
+article{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.listas{
+    margin: 15px;
+    display: flex;
+    justify-content: space-around;
+}
+
+article img{
+    width: 60px;
+    height: 60px;
+}
+
+.listas a{
+    color: black;
+    text-decoration: none;
+    background-color: aquamarine;
+    width: 400px;
+    height: 100px;
+    box-shadow: 5px 5px teal;
+    text-align: center;
+    font-size: 20px;
+}
+
+.listas a img{
+    padding-top: 20px;
+    padding-left: 5px;
+}
+
+.listas4{
+    color: black;
+    text-decoration: none;
+    background-color: aquamarine;
+    width: 400px;
+    height: 100px;
+    box-shadow: 5px 5px teal;
+    font-size: 20px;
+    text-align: center;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.listas4 div{
+    display: flex;
+    flex-direction: column;
+}
+
+.listas4 form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+
+select{
+    margin: 4px 0;
+    width: 80px;
+    height: 20px;
+    border: 2px solid teal  ;
+}
+
+input{
+    width: 50px;
+    height: 20px;
+    border: thin solid teal  ;
+    box-shadow: 5px 5px teal;
+}
+
+.listas a:hover{
+    background-color: yellow;
+    width: 450px;
+    transition: 1000ms;
+}
+
+.listas4:hover{
+    background-color: yellow;
+    transition: 1000ms;
+}
+
+input:hover{
+    background-color: red;
+}
