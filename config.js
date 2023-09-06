@@ -22,7 +22,7 @@ app.use('/api', userRoutes);
 
 //routers
 app.get("/", (req, res)=>{
-  res.render("registro");
+  res.render("registrar");
 });
 
 //mongodb conection
