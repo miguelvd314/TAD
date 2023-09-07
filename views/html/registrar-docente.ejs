@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Docentes</title>
+    <link rel="stylesheet" href="../css/registro-docente-style.css">
+</head>
+<body>
+    <header>
+        <div class="superior-izquierdo">
+            <div>
+                <img src="../imagenes/c1-Fisi.png" alt="Fisi">
+            </div>
+            <h2>Sistema de Gestión de Actividades</h2>
+        </div>
+        <div class="superior-derecha">
+            <h2>Administrador</h2>
+            <div>
+                <img src="../imagenes/c1-Perfil1.png" alt="Perfil">
+            </div>
+        </div>
+    </header>
+    <main>
+        <article>
+            <div class="parte1">
+                <label>Registro de Docente</label>
+            </div>
+            <div class="parte2">
+                <form action="formulario" method="post" >
+                    <section class="textos">
+                        <div class="campos">
+                            <label>Nombres:</label><br>
+                            <input type="text" name="nombre" placeholder=" Ingrese nombre completo" required>
+                        </div>
+                        <div class="campos">
+                            <label>Apellidos:</label><br>
+                            <input type="text" name="apellidos" placeholder=" Ingrese apellidos completos" required>
+                        </div>
+                        <div class="campos">
+                            <label>Correo:</label><br>
+                            <input type="email" name="correo" placeholder=" Ingrese correo" required>
+                        </div>
+                        <div class="campos">
+                            <label>Código:</label><br>
+                            <input type="number" name="codigo" placeholder=" Ingrese el codigo" required>
+                        </div>
+                        <div class="campos">
+                            <label>Celular:</label><br>
+                            <input type="tel" name="celular" placeholder=" Ingrese el # celular" required> 
+                        </div>
+                        <div class="campos">
+                            <label>Fecha Inscripción:</label><br>
+                            <input type="date" name="celular" placeholder=" Ingrese el # celular" required> 
+                        </div>
+                        <div class="campos">
+                            <label>Contraseña:</label><br>
+                            <input type="password" name="contrasenia" placeholder=" Ingrese la contraseña" required>
+                        </div>
+                        <div class="campos">
+                            <label>Confirmar Contraseña:</label><br>
+                            <input type="password" name="contrasenia" placeholder=" Reingresa la contraseña" required>
+                        </div>
+                    </section>
+                    <section class="enviar-salir">
+                        <div class="botones">
+                            <img src="../imagenes/rd-registrar.svg" alt="Registrar">
+                            <button type="submit" class="empujar">Registrar</button>
+                        </div>
+                        <div class="botones">
+                            <img src="../imagenes/rd-salir.png" alt="Salir">
+                            <a href="administrador.html"><button type="button" class="empujar" type="reset">Salir</button></a>
+                        </div>
+                    </section>
+                </form>
+            </div>
+        </article>
+    </main>
+</body>
+</html>

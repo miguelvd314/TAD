@@ -15,14 +15,29 @@ const port = process.env.PORT || 9000;
 app.set('view engine', 'ejs'); // Usar EJS como motor de plantillas
 app.set('views', __dirname + '/views'); // Ruta de las vistas
 
+// Configura Express para servir archivos estáticos desde la carpeta 'public'
+app.use(express.static(__dirname + '/public'));
+
 //middleware
 app.use(cors())
 app.use(express.json());
 app.use('/api', userRoutes);
 
-//routers
+//Se declara las views
 app.get("/", (req, res)=>{
-  res.render("registrar");
+  res.render("html/administrador");
+});
+
+app.get("/registrar-alumno.html", (req, res)=>{
+  res.render("html/registrar-alumno");
+});
+
+app.get("/registrar-curso.html", (req, res)=>{
+  res.render("html/registrar-curso");
+});
+
+app.get("/registrar-docente.html", (req, res)=>{
+  res.render("html/registrar-docente");
 });
 
 //mongodb conection
