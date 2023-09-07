@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro de Docentes</title>
     <link rel="stylesheet" href="../css/registro-docente-style.css">
+    <script src="../public/js/script.js"></script>
 </head>
 <body>
     <header>
@@ -31,35 +32,35 @@
                     <section class="textos">
                         <div class="campos">
                             <label>Nombres:</label><br>
-                            <input type="text" name="nombre" placeholder=" Ingrese nombre completo" required>
+                            <input type="text" name="nombres" id="nombre" placeholder=" Ingrese nombre completo" required>
                         </div>
                         <div class="campos">
                             <label>Apellidos:</label><br>
-                            <input type="text" name="apellidos" placeholder=" Ingrese apellidos completos" required>
+                            <input type="text" name="apellidos" id="apellido" placeholder=" Ingrese apellidos completos" required>
                         </div>
                         <div class="campos">
                             <label>Correo:</label><br>
-                            <input type="email" name="correo" placeholder=" Ingrese correo" required>
+                            <input type="email" name="correos" id="email" placeholder=" Ingrese correo" required>
                         </div>
                         <div class="campos">
                             <label>Código:</label><br>
-                            <input type="number" name="codigo" placeholder=" Ingrese el codigo" required>
+                            <input type="number" name="codigos" id="codigo" placeholder=" Ingrese el codigo" required>
                         </div>
                         <div class="campos">
                             <label>Celular:</label><br>
-                            <input type="tel" name="celular" placeholder=" Ingrese el # celular" required> 
+                            <input type="tel" name="celulares" id="celular" placeholder=" Ingrese el # celular" required> 
                         </div>
                         <div class="campos">
                             <label>Fecha Inscripción:</label><br>
-                            <input type="date" name="celular" placeholder=" Ingrese el # celular" required> 
+                            <input type="date" name="fechaInscripcion" id="fecha" placeholder=" Ingrese el # celular" required> 
                         </div>
                         <div class="campos">
                             <label>Contraseña:</label><br>
-                            <input type="password" name="contrasenia" placeholder=" Ingrese la contraseña" required>
+                            <input type="password" name="contrasenias" id="contrasenia" placeholder=" Ingrese la contraseña" required>
                         </div>
                         <div class="campos">
                             <label>Confirmar Contraseña:</label><br>
-                            <input type="password" name="contrasenia" placeholder=" Reingresa la contraseña" required>
+                            <input type="password" name="confirmar-contrasenia" id="recontrasenia" placeholder=" Reingresa la contraseña" required>
                         </div>
                     </section>
                     <section class="enviar-salir">
