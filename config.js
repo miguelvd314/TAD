@@ -48,13 +48,51 @@ mongoose
 
 app.listen(port, () => console.log('servidor esta funcionando', port));
 
-//JAVASCRIPT
+// const docentesSchema = mongoose.Schema{
+
+// }
+
+const docentesSchema = mongoose.Schema({
+    nombre:{
+        type: String,
+        required:true
+    },
+    apellido:{
+        type: String,
+        required:true
+    },
+    email:{
+        type: String,
+        required:true
+    },
+    codigo:{
+        type: String,
+        required:true
+    },
+    fecha:{
+        type: String,
+        required:true
+    },
+    contrasenia:{
+        type: String,
+        required:true
+    },
+    recontrasenia:{
+        type: String,
+        required:true
+    }
+});
+
+const Docentes = mongoose.model('Docentes', docentesSchema)
+
+//Captura de Datos - JAVASCRIPT
 app.use(express.json())
 
-app.post('/api/v1/docentes', (req, res, next) => {
-  console.log('Peticion recibida')
-  console.log({ body: req.body })
-  res.status(201).json({ ok:true })
+app.post('/api/v1/docentes', (req, res) => {
+  const newDocentes = new Docentes(req.body)
+  newDocentes.save().then((result) => {
+    res.status(201).json({ ok:true })
+  }).catch((err) => console.log(err))
 })
 
 //Configuracion autenticación Google

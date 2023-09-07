@@ -1,11 +1,11 @@
 const express = require("express");
-const userSchema = require("../models/user");
+const docentesSchema = require("../models/user");
 
 const router = express.Router();
 
 //crear usuario
 router.post('/users', (req, res) =>{
-    const  user = userSchema(req.body);
+    const  user = docentesSchema(req.body);
     user
     .save()
     .then((data) => res.json(data))
@@ -14,7 +14,7 @@ router.post('/users', (req, res) =>{
 
 //obtener todos los usuarios
 router.get('/users', (req, res) =>{
-    userSchema
+    docentesSchema
     .find()
     .then((data) => res.json(data))
     .catch((error)=> res.json({message: error}));
@@ -23,7 +23,7 @@ router.get('/users', (req, res) =>{
 //obtener un usuario en especifico
 router.get('/users/:id', (req, res) =>{
     const { id } = req.params;
-    userSchema
+    docentesSchema
     .findById(id)
     .then((data) => res.json(data))
     .catch((error)=> res.json({message: error}));
@@ -33,7 +33,7 @@ router.get('/users/:id', (req, res) =>{
 router.put('/users/:id', (req, res) =>{
     const { id } = req.params;
     const {correo, contraseña} = req.body;
-    userSchema
+    docentesSchema
     .updateOne({ _id: id},{ $set: {correo, contraseña}})
     .then((data) => res.json(data))
     .catch((error)=> res.json({message: error}));
@@ -42,7 +42,7 @@ router.put('/users/:id', (req, res) =>{
 //Eliminar usuario
 router.delete('/users/:id', (req, res) =>{
     const { id } = req.params;
-    userSchema
+    docentesSchema
     .deleteOne({ _id: id})
     .then((data) => res.json(data))
     .catch((error)=> res.json({message: error}));
