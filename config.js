@@ -48,6 +48,15 @@ mongoose
 
 app.listen(port, () => console.log('servidor esta funcionando', port));
 
+//JAVASCRIPT
+app.use(express.json())
+
+app.post('/api/v1/docentes', (req, res, next) => {
+  console.log('Peticion recibida')
+  console.log({ body: req.body })
+  res.status(201).json({ ok:true })
+})
+
 //Configuracion autenticación Google
 // passport.use(new GoogleStrategy({
 //     clientID: process.env.CLIENT_ID,
