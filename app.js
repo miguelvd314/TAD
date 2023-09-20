@@ -4,7 +4,7 @@ const passport = require('passport');
 const cors = require("cors");
 require ("dotenv").config();
 
-const userRoutes = require("./routes/user");
+const userRoutes = require("./controlador/user");
 const passportLocalMongoose = require('passport-local-mongoose');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const findOrCreate = require('mongoose-findorcreate');
@@ -12,8 +12,9 @@ const findOrCreate = require('mongoose-findorcreate');
 const app = express();
 const port = process.env.PORT || 9000;
 
-app.set('view engine', 'ejs'); // Usar EJS como motor de plantillas
-app.set('views', __dirname + '/views'); // Ruta de las vistas
+// Ruta de las vistas
+app.set('view engine', 'ejs');
+app.set('views', __dirname + '/views');
 
 // Configura Express para servir archivos estáticos desde la carpeta 'public'
 app.use(express.static(__dirname + '/public'));
@@ -25,19 +26,19 @@ app.use('/api', userRoutes);
 
 //Se declara las views
 app.get("/", (req, res)=>{
-  res.render("html/administrador");
+  res.render("administrador");
 });
 
 app.get("/registrar-alumno.html", (req, res)=>{
-  res.render("html/registrar-alumno");
+  res.render("registrar-alumno");
 });
 
 app.get("/registrar-curso.html", (req, res)=>{
-  res.render("html/registrar-curso");
+  res.render("registrar-curso");
 });
 
 app.get("/registrar-docente.html", (req, res)=>{
-  res.render("html/registrar-docente");
+  res.render("registrar-docente");
 });
 
 //mongodb conection
