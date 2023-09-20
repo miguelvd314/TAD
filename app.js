@@ -4,10 +4,7 @@ const passport = require('passport');
 const cors = require("cors");
 require ("dotenv").config();
 
-const userRoutes = require("./controlador/user");
-const passportLocalMongoose = require('passport-local-mongoose');
-const GoogleStrategy = require('passport-google-oauth20').Strategy;
-const findOrCreate = require('mongoose-findorcreate');
+const controlador = require("./controlador/user");
 
 const app = express();
 const port = process.env.PORT || 9000;
@@ -22,7 +19,7 @@ app.use(express.static(__dirname + '/public'));
 //middleware
 app.use(cors())
 app.use(express.json());
-app.use('/api', userRoutes);
+app.use('/api', controlador);
 
 //Se declara las views
 app.get("/", (req, res)=>{
@@ -95,24 +92,3 @@ app.post('/api/v1/docentes', (req, res) => {
     res.status(201).json({ ok:true })
   }).catch((err) => console.log(err))
 })
-
-//Configuracion autenticación Google
-// passport.use(new GoogleStrategy({
-//     clientID: process.env.CLIENT_ID,
-//     clientSecret: process.env.CLIENT_SECRET,
-//     callbackURL: "http://localhost:9000/auth/google/registrar"
-//   },
-//   function(accessToken, refreshToken, profile, cb) {
-//     User.findOrCreate({ googleId: profile.id }, function (err, user) {
-//       return cb(err, user);
-//     });
-//   }
-// ));
-
-// // auth google
-// app.get('/auth/google',passport.authenticate('google', { scope: ['profile'] }));
-// // Callback auth google
-// app.route("/auth/google/crear")
-// .get( passport.authenticate('google', { failureRedirect: "/iniciar-sesion" }),
-//     function(req, res) { res.redirect("/crear");
-// });
