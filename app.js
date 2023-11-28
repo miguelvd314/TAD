@@ -11,6 +11,7 @@ const controlador = require("./controlador/user");
 const app = express();
 const port = process.env.PORT;
 
+
 // Ruta de las vistas
 app.set('view engine', 'ejs');
 app.set('views', __dirname + '/views');
