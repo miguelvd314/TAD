@@ -68,6 +68,18 @@ app.get('/', (req, res) => {
   res.render('index'); // Mostrar la página index.ejs
 });
 
+app.get('/registrar-docente', (req, res) => {
+  res.render('registrar-docente');
+});
+
+app.get('/registrar-alumno', (req, res) => {
+  res.render('registrar-alumno');
+});
+
+app.get('/registrar-curso', (req, res) => {
+  res.render('registrar-curso');
+});
+
 app.get('/administrador', (req, res) => {
   if (req.isAuthenticated()) {
     res.render('administrador'); // Mostrar la página administrador.ejs
