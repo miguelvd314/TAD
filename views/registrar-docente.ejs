@@ -25,49 +25,50 @@
     <!-- registrar-docente.ejs -->
 
 <!-- Formulario para ingresar el apellido y realizar la búsqueda -->
+
 <form action="/registrar-docente" method="get">
     <label for="apellido">Buscar por Apellido:</label>
     <input type="text" id="apellido" name="apellido" required>
     <button type="submit">Buscar</button>
   </form>
   
-  <!-- Muestra los resultados en una tabla si existen -->
-<% if (resultados && resultados.length > 0) { %>
-    <table>
-      <thead>
-        <tr>
-          <th>Nombre</th>
-          <th>Apellido</th>
-          <th>Role</th>
-          <th>Acciones</th>
-          <!-- Agrega más columnas según tus necesidades -->
-        </tr>
-      </thead>
-      <tbody>
-        <% resultados.forEach((usuario) => { %>
+    <!-- Muestra los resultados en una tabla si existen -->
+  <% if (resultados && resultados.length > 0) { %>
+      <table>
+        <thead>
           <tr>
-            <td><%= usuario.firstName %></td>
-            <td><%= usuario.lastName %></td>
-            <td>
-              <!-- Convierte el campo role en un combobox -->
-              <select id="editRole_<%= usuario._id %>" style="display: none;">
-                <option value="alumno" <%= usuario.role === 'alumno' ? 'selected' : '' %>>Alumno</option>
-                <option value="docente" <%= usuario.role === 'docente' ? 'selected' : '' %>>Docente</option>
-                <option value="administrador" <%= usuario.role === 'administrador' ? 'selected' : '' %>>Administrador</option>
-              </select>
-              <span id="role_<%= usuario._id %>"><%= usuario.role %></span>
-            </td>
-            <td>
-              <button onclick="editRole('<%= usuario._id %>')">Editar</button>
-              <button onclick="saveRole('<%= usuario._id %>')" style="display: none;">Guardar</button>
-            </td>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Role</th>
+            <th>Acciones</th>
+            <!-- Agrega más columnas según tus necesidades -->
           </tr>
-        <% }); %>
-      </tbody>
-    </table>
-  <% } else if (resultados) { %>
-    <p>No se encontraron resultados para el apellido ingresado.</p>
-  <% } %>
+        </thead>
+        <tbody>
+          <% resultados.forEach((usuario) => { %>
+            <tr>
+              <td><%= usuario.firstName %></td>
+              <td><%= usuario.lastName %></td>
+              <td>
+                <!-- Convierte el campo role en un combobox -->
+                <select id="editRole_<%= usuario._id %>" style="display: none;">
+                  <option value="alumno" <%= usuario.role === 'alumno' ? 'selected' : '' %>>Alumno</option>
+                  <option value="docente" <%= usuario.role === 'docente' ? 'selected' : '' %>>Docente</option>
+                  <option value="administrador" <%= usuario.role === 'administrador' ? 'selected' : '' %>>Administrador</option>
+                </select>
+                <span id="role_<%= usuario._id %>"><%= usuario.role %></span>
+              </td>
+              <td>
+                <button onclick="editRole('<%= usuario._id %>')">Editar</button>
+                <button onclick="saveRole('<%= usuario._id %>')" style="display: none;">Guardar</button>
+              </td>
+            </tr>
+          <% }); %>
+        </tbody>
+      </table>
+    <% } else if (resultados) { %>
+      <p>No se encontraron resultados para el apellido ingresado.</p>
+    <% } %>
     
 </body>
 </html>
