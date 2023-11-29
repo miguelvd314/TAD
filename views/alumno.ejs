@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Alumno</title>
+    <link rel="stylesheet" type="text/css" href="../css/alumno-style.css">
+</head>
+<body>
+    <header>
+        <div class="superior-izquierdo">
+            <div>
+                <img src="./imagenes/c1-Fisi.png" alt="Fisi">
+            </div>
+            <h2>Carreras Ágiles</h2>
+        </div>
+        <div class="superior-derecha">
+            <h2>Bienvenido, <%= user.displayName %></h2>
+            <div>
+                <img src="<%= user.photo %>" alt="Foto de perfil">
+            </div>
+        </div>
+    </header>
+    <h2>Lista de Cursos Disponibles</h2>
+
+  <ul>
+    <% cursos.forEach(function(curso) { %>
+      <li>
+        <strong><%= curso.nombreCurso %></strong>
+        <p>Día: <%= curso.dia %></p>
+        <p>Hora: <%= curso.hora %></p>
+        <p>Docente: <%= curso.docente.displayName %></p>
+        <p>Vacantes: <%= curso.vacantes %></p>
+        <p>Precio: <%= curso.precio %></p>
+        <form action="/matricular" method="post">
+          <input type="hidden" name="cursoId" value="<%= curso._id %>">
+          <button type="submit">Matricúlate</button>
+        </form>
+      </li>
+    <% }); %>
+  </ul>
+</body>
+</html>

@@ -86,7 +86,21 @@ app.get(
   '/auth/google/callback',
   passport.authenticate('google', { failureRedirect: '/' }),
   (req, res) => {
-    res.redirect('/administrador');
+    // Redirigir según el rol del usuario
+    switch (req.user.role) {
+      case 'administrador':
+        res.redirect('/administrador');
+        break;
+      case 'docente':
+        res.redirect('/docente');
+        break;
+      case 'alumno':
+        res.redirect('/alumno');
+        break;
+      default:
+        // Si el rol no coincide con "administrador", "docente" o "alumno", redirigir a inicio de sesión
+        res.redirect('/');
+    }
   }
 );
 
@@ -128,14 +142,6 @@ app.put('/update-role/:userId', async (req, res) => {
   }
 });
 
-app.get('/registrar-alumno', (req, res) => {
-  res.render('registrar-alumno');
-});
-
-// app.get('/registrar-curso', (req, res) => {
-//   res.render('registrar-curso', { user: req.user });
-// });
-
 app.get('/registrar-curso', async (req, res) => {
   try {
     // Obtiene la lista de usuarios con rol "docente"
@@ -168,10 +174,83 @@ app.post('/registrar-curso', (req, res) => {
   });
 });
 
+// app.get('/alumno', (req, res) => {
+//   res.render('alumno', { user: req.user });
+// });
+
+app.get('/alumno', async (req, res) => {
+  try {
+    // Consulta todos los cursos disponibles
+    const cursos = await Curso.find().populate('docente', 'displayName');
+
+    res.render('alumno', { user: req.user, cursos });
+  } catch (error) {
+    console.error(error);
+    res.send('Error al obtener la información de los cursos.');
+  }
+});
+
+app.post('/matricular', async (req, res) => {
+  try {
+    const { cursoId } = req.body;
+    const userId = req.user._id;
+
+    // Busca el curso por su _id
+    const curso = await Curso.findById(cursoId);
+
+    if (!curso) {
+      return res.status(404).send('Curso no encontrado.');
+    }
+
+    // Verifica si hay vacantes disponibles
+    if (curso.vacantes <= 0) {
+      return res.status(400).send('No hay vacantes disponibles en este curso.');
+    }
+
+    // Verifica si el usuario ya está matriculado en este curso
+    if (curso.matriculas.includes(userId)) {
+      return res.status(400).send('Ya estás matriculado en este curso.');
+    }
+
+    // Agrega el _id del usuario a la lista de matriculados en el curso
+    curso.matriculas.push(userId);
+
+    // Disminuye las vacantes disponibles
+    curso.vacantes--;
+
+    await curso.save();
+
+    res.send('¡Te has matriculado correctamente!');
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Error al matricularse en el curso.');
+  }
+});
+
+app.get('/docente', (req, res) => {
+  res.render('docente', { user: req.user });
+});
+
 app.get('/administrador', (req, res) => {
+  // Verificar si el usuario está autenticado
   if (req.isAuthenticated()) {
-    res.render('administrador', { user: req.user });
+    // Redirigir según el rol del usuario
+    switch (req.user.role) {
+      case 'administrador':
+        res.render('administrador', { user: req.user });
+        break;
+      case 'docente':
+        res.render('docente', { user: req.user });
+        break;
+      case 'alumno':
+        res.render('alumno', { user: req.user });
+        break;
+      default:
+        // Si el rol no coincide con "administrador", "docente" o "alumno", redirigir a inicio de sesión
+        res.redirect('/auth/google');
+    }
   } else {
+    // Redirigir a la página de inicio de sesión si no está autenticado
     res.redirect('/auth/google');
   }
 });

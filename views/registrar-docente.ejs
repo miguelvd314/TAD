@@ -53,6 +53,7 @@
               <select id="editRole_<%= usuario._id %>" style="display: none;">
                 <option value="alumno" <%= usuario.role === 'alumno' ? 'selected' : '' %>>Alumno</option>
                 <option value="docente" <%= usuario.role === 'docente' ? 'selected' : '' %>>Docente</option>
+                <option value="administrador" <%= usuario.role === 'administrador' ? 'selected' : '' %>>Administrador</option>
               </select>
               <span id="role_<%= usuario._id %>"><%= usuario.role %></span>
             </td>

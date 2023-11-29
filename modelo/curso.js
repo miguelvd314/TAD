@@ -8,8 +8,14 @@ const cursoSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Usuario'
   },
-  vacantes: String,
-  precio: String
+  vacantes: Number,
+  precio: String,
+  matriculas: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Usuario'
+    }
+  ]
 });
 
 const Curso = mongoose.model('Curso', cursoSchema);
