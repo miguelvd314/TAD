@@ -4,10 +4,13 @@ const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const session = require('express-session');
 const cors = require('cors');
+const bodyParser = require('body-parser');
+
 require('dotenv').config();
 
 const controlador = require('./controlador/user');
 const Usuario = require('./modelo/usuario');
+const Curso = require('./modelo/curso');
 
 const app = express();
 const port = process.env.PORT;
@@ -15,6 +18,7 @@ const port = process.env.PORT;
 // Ruta de las vistas
 app.set('view engine', 'ejs');
 app.set('views', __dirname + '/views');
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // Configura Express para servir archivos estáticos desde la carpeta 'public'
 app.use(express.static(__dirname + '/public'));
@@ -109,12 +113,59 @@ app.get('/registrar-docente', async (req, res) => {
   }
 });
 
+app.put('/update-role/:userId', async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const { role } = req.body;
+
+    // Actualiza el role en la base de datos
+    await Usuario.findByIdAndUpdate(userId, { role });
+
+    res.sendStatus(200); // Envía una respuesta de éxito al cliente
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Error interno del servidor');
+  }
+});
+
 app.get('/registrar-alumno', (req, res) => {
   res.render('registrar-alumno');
 });
 
-app.get('/registrar-curso', (req, res) => {
-  res.render('registrar-curso');
+// app.get('/registrar-curso', (req, res) => {
+//   res.render('registrar-curso', { user: req.user });
+// });
+
+app.get('/registrar-curso', async (req, res) => {
+  try {
+    // Obtiene la lista de usuarios con rol "docente"
+    const usuarios = await Usuario.find({ role: 'docente' }, 'lastName');
+
+    res.render('registrar-curso', { user: req.user, usuarios });
+  } catch (error) {
+    console.error(error);
+    res.send('Error al obtener la lista de docentes.');
+  }
+});
+
+app.post('/registrar-curso', (req, res) => {
+  const nuevoCurso = new Curso({
+    nombreCurso: req.body.nombreCurso,
+    dia: req.body.dia,
+    hora: req.body.hora,
+    docente: req.body.docente,
+    vacantes: req.body.vacantes,
+    precio: req.body.precio
+  });
+
+  nuevoCurso.save()
+  .then(() => {
+    res.send('Curso registrado correctamente.');
+  })
+  .catch((err) => {
+    console.error(err);
+    res.send('Error al guardar el curso.');
+  });
 });
 
 app.get('/administrador', (req, res) => {

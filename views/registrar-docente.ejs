@@ -13,7 +13,7 @@
             <div>
                 <img src="./imagenes/c1-Fisi.png" alt="Fisi">
             </div>
-            <h2>Sistema de Gestión de Actividades</h2>
+            <h2>Carreras Ágiles</h2>
         </div>
         <div class="superior-derecha">
             <h2>Bienvenido, <%= user.displayName %></h2>
@@ -32,12 +32,14 @@
   </form>
   
   <!-- Muestra los resultados en una tabla si existen -->
-  <% if (resultados && resultados.length > 0) { %>
+<% if (resultados && resultados.length > 0) { %>
     <table>
       <thead>
         <tr>
           <th>Nombre</th>
           <th>Apellido</th>
+          <th>Role</th>
+          <th>Acciones</th>
           <!-- Agrega más columnas según tus necesidades -->
         </tr>
       </thead>
@@ -46,7 +48,18 @@
           <tr>
             <td><%= usuario.firstName %></td>
             <td><%= usuario.lastName %></td>
-            <!-- Agrega más celdas según tus necesidades -->
+            <td>
+              <!-- Convierte el campo role en un combobox -->
+              <select id="editRole_<%= usuario._id %>" style="display: none;">
+                <option value="alumno" <%= usuario.role === 'alumno' ? 'selected' : '' %>>Alumno</option>
+                <option value="docente" <%= usuario.role === 'docente' ? 'selected' : '' %>>Docente</option>
+              </select>
+              <span id="role_<%= usuario._id %>"><%= usuario.role %></span>
+            </td>
+            <td>
+              <button onclick="editRole('<%= usuario._id %>')">Editar</button>
+              <button onclick="saveRole('<%= usuario._id %>')" style="display: none;">Guardar</button>
+            </td>
           </tr>
         <% }); %>
       </tbody>
