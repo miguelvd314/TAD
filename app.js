@@ -7,6 +7,7 @@ const cors = require('cors');
 require('dotenv').config();
 
 const controlador = require('./controlador/user');
+const Usuario = require('./modelo/usuario');
 
 const app = express();
 const port = process.env.PORT;
@@ -29,19 +30,41 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // Configurar la estrategia de autenticación de Google
-passport.use(
-  new GoogleStrategy(
-    {
-      clientID: process.env.GOOGLE_CLIENT_ID,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      callbackURL: 'http://localhost:3000/auth/google/callback',
-    },
-    (accessToken, refreshToken, profile, done) => {
-      // Puedes almacenar el perfil del usuario en la base de datos aquí
-      return done(null, profile);
+passport.use(new GoogleStrategy({
+  clientID: process.env.GOOGLE_CLIENT_ID,
+  clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+  callbackURL: 'http://localhost:3000/auth/google/callback'
+}, async (accessToken, refreshToken, profile, done) => {
+  // Puedes almacenar el perfil del usuario en la base de datos aquí
+  try {
+    // Busca el usuario en la base de datos por el ID de Google
+    const existingUser = await Usuario.findOne({ googleId: profile.id });
+
+    if (existingUser) {
+      // Si el usuario ya existe, devuelve el usuario
+      return done(null, existingUser);
     }
-  )
-);
+
+    // Si el usuario no existe, crea uno nuevo
+    const newUser = new Usuario({
+      googleId: profile.id,
+      displayName: profile.displayName,
+      firstName: profile.name.givenName,
+      lastName: profile.name.familyName,
+      photo: profile.photos[0].value,
+      role: 'alumno',
+    });
+
+    // Guarda el nuevo usuario en la base de datos
+    await newUser.save();
+
+    // Devuelve el nuevo usuario
+    return done(null, newUser);
+  } catch (error) {
+    return done(error, null);
+  }
+}));
+
 
 // Serializar y deserializar el usuario
 passport.serializeUser((user, done) => {
@@ -65,11 +88,25 @@ app.get(
 
 // Ruta protegida
 app.get('/', (req, res) => {
-  res.render('index'); // Mostrar la página index.ejs
+  res.render('index');
 });
 
-app.get('/registrar-docente', (req, res) => {
-  res.render('registrar-docente');
+// Renderizar la página inicial
+app.get('/registrar-docente', async (req, res) => {
+  try {
+    // Obtén el apellido desde los parámetros de la solicitud
+    const { apellido } = req.query;
+
+    // Realiza la búsqueda en la base de datos por apellido
+    const resultados = await Usuario.find({ lastName: new RegExp(apellido, 'i') });
+
+    // Renderiza la vista y pasa los resultados a la plantilla
+    res.render('registrar-docente', { user: req.user, resultados });
+  } catch (error) {
+    // Maneja errores si ocurren durante la búsqueda
+    console.error(error);
+    res.status(500).send('Error interno del servidor');
+  }
 });
 
 app.get('/registrar-alumno', (req, res) => {
@@ -82,7 +119,7 @@ app.get('/registrar-curso', (req, res) => {
 
 app.get('/administrador', (req, res) => {
   if (req.isAuthenticated()) {
-    res.render('administrador'); // Mostrar la página administrador.ejs
+    res.render('administrador', { user: req.user });
   } else {
     res.redirect('/auth/google');
   }
